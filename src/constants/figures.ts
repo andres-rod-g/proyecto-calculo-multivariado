@@ -217,7 +217,7 @@ export const FIGURES: IFigure[] = [
                 id: "b",
                 label: "Semieje menor",
                 description: "Distancia desde el centro hasta el borde de la elipse en la dirección del eje menor.",
-                initialValue: 1
+                initialValue: 2
             },
         ],
         latexSteps: [
@@ -394,7 +394,7 @@ export const FIGURES: IFigure[] = [
                 id: "h",
                 label: "Altura",
                 description: "La distancia desde la base hasta el vértice del cono.",
-                initialValue: 1
+                initialValue: 2
             }
         ],
         latexSteps: [
@@ -455,7 +455,7 @@ export const FIGURES: IFigure[] = [
                 id: "h",
                 label: "Altura",
                 description: "La distancia entre las dos bases del cilindro (altura del cilindro).",
-                initialValue: 1
+                initialValue: 2
             }
         ],
         latexSteps: [
