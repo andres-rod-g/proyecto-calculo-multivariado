@@ -1,4 +1,6 @@
 import { Circle, Coordinates, Ellipse, Mafs, Polygon, Theme, Transform, useMovablePoint, vec } from "mafs";
+import { Canvas } from "@react-three/fiber"
+import { OrbitControls } from "@react-three/drei";
 
 interface CustomProps {
     id: string;
@@ -98,9 +100,9 @@ const graphRenderer: React.FC<CustomProps> = ({
                         />
                         <Polygon
                             points={[
-                                [-object.base/2, object.altura / 2], 
-                                [object.base/2, object.altura / 2], 
-                                [object.base / 2, -object.altura / 2], 
+                                [-object.base / 2, object.altura / 2],
+                                [object.base / 2, object.altura / 2],
+                                [object.base / 2, -object.altura / 2],
                                 [-object.base / 2, -object.altura / 2],
                             ]}
                             color={Theme.blue}
@@ -108,20 +110,72 @@ const graphRenderer: React.FC<CustomProps> = ({
                     </Mafs>
                 );
             case "esfera":
-return <></>
+                return (
+                    <Canvas camera={{ position: [5, 5, 5], fov: 75 }} className=" aspect-square">
+                        <ambientLight intensity={Math.PI / 2} />
+                        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={Math.PI} />
+                        <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
+                        <gridHelper />
+                        <OrbitControls />
+                        <mesh >
+                            <sphereGeometry attach='geometry' args={[object.r, 32]} />
+
+                            <meshNormalMaterial attach="material" />
+                        </mesh>
+                    </Canvas>
+                )
             case "cubo":
-return <></>
-            case "triangulo":
-return <></>
+                return (
+                    <Canvas camera={{ position: [5, 5, 5], fov: 75 }} className=" aspect-square">
+                        <ambientLight intensity={Math.PI / 2} />
+                        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={Math.PI} />
+                        <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
+                        <gridHelper />
+                        <OrbitControls />
+                        <mesh >
+                            <boxGeometry attach='geometry' args={[object.l, object.l, object.l]} />
+
+                            <meshNormalMaterial attach="material" />
+                        </mesh>
+                    </Canvas>
+                )
+            case "cilindro":
+                return (
+                    <Canvas camera={{ position: [5, 5, 5], fov: 75 }} className=" aspect-square">
+                        <ambientLight intensity={Math.PI / 2} />
+                        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={Math.PI} />
+                        <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
+                        <gridHelper />
+                        <OrbitControls />
+                        <mesh >
+                            <cylinderGeometry attach='geometry' args={[object.r, object.r, object.h, 32]} />
+
+                            <meshNormalMaterial attach="material" />
+                        </mesh>
+                    </Canvas>
+                )
             case "cono":
-return <></>
+                return (
+                    <Canvas camera={{ position: [5, 5, 5], fov: 75 }} className=" aspect-square">
+                        <ambientLight intensity={Math.PI / 2} />
+                        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} decay={0} intensity={Math.PI} />
+                        <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
+                        <gridHelper />
+                        <OrbitControls />
+                        <mesh >
+                            <coneGeometry attach='geometry' args={[object.r, object.h, 30]} />
+
+                            <meshNormalMaterial attach="material" />
+                        </mesh>
+                    </Canvas>
+                )
         }
     }
 
-return <>
-    {/* {id} */}
-    {renderer()}
-</>
+    return <>
+        {/* {id} */}
+        {renderer()}
+    </>
 }
 
 function isOdd(n: number) {

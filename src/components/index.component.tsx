@@ -18,14 +18,14 @@ import graphRenderer from "./graphRender/graphRenderer.component";
 
 const IndexComponent = () => {
     const [selectedDimension, setSelectedDimension] = useState<React.Key>("2D");
-    const [objectData, setObjectData] = useState<{[key: string]: number}>({})
+    const [objectData, setObjectData] = useState<{ [key: string]: number }>({})
 
     const [selectedFigure, setSelectedFigure] = useState<IFigure | null>(FIGURES[0]);
 
     const handleChangeObjectData = (id: string, value: number) => {
         let temp = objectData;
         temp[id] = value
-        setObjectData({...temp})
+        setObjectData({ ...temp })
     }
 
     useEffect(() => {
@@ -34,10 +34,10 @@ const IndexComponent = () => {
 
     useEffect(() => {
         setObjectData({})
-        let data: {[key: string]: number} = {}
+        let data: { [key: string]: number } = {}
 
         selectedFigure?.figureData.map((v) => {
-            console.log({[v.id]: v.initialValue})
+            console.log({ [v.id]: v.initialValue })
             data[v.id] = v.initialValue
         })
 
@@ -112,24 +112,6 @@ const IndexComponent = () => {
                 {
                     selectedFigure &&
                     <>
-
-                        <InfoContainerComponent
-                            title="Datos de la figura"
-                            description="En esta sección, deberás escribir todos los campos y secciones correspondientes a cada figura."
-                        >
-                            {
-                                selectedFigure.figureData.map((v) => {
-                                    return (
-                                        <Input
-                                            label={v.label}
-                                            value={objectData[v.id]?.toString()}
-                                            onChange={(e) => handleChangeObjectData(v.id, parseFloat(e.target.value))}
-                                            description={v.description}
-                                        />
-                                    )
-                                })
-                            }
-                        </InfoContainerComponent>
                         <InfoContainerComponent
                             title="Paso a Paso"
                             description="En esta sección se puede visualizar el paso a paso de la operación."
@@ -155,6 +137,26 @@ const IndexComponent = () => {
                                     })
                                 }
                             </div>
+                        </InfoContainerComponent>
+                        <InfoContainerComponent
+                            title="Datos de la figura"
+                            description="En esta sección, deberás escribir todos los campos y secciones correspondientes a cada figura."
+                        >
+                            {
+                                selectedFigure.figureData.map((v) => {
+                                    return (
+                                        <Input
+                                            label={v.label}
+                                            value={objectData[v.id]?.toString()}
+                                            onChange={(e) => {
+                                                if (e.target.value === "") return
+                                                handleChangeObjectData(v.id, parseFloat(e.target.value))
+                                            }}
+                                            description={v.description}
+                                        />
+                                    )
+                                })
+                            }
                         </InfoContainerComponent>
                         <InfoContainerComponent
                             title="Gráfico"
